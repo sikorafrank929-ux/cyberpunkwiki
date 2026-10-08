@@ -1,0 +1,2092 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEON//WIKI</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;600;700&display=swap');
+
+:root{
+    --cyan:#00f6ff;
+    --pink:#ff168c;
+    --purple:#8b5cff;
+    --green:#39ff88;
+    --bg:#05070d;
+    --panel:#0b101a;
+    --text:#dffcff;
+    --muted:#7d94aa;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:
+        radial-gradient(circle at 80% 10%,rgba(139,92,255,.18),transparent 30%),
+        radial-gradient(circle at 10% 50%,rgba(0,246,255,.08),transparent 30%),
+        #05070d;
+    color:var(--text);
+    font-family:Rajdhani,sans-serif;
+    font-size:18px;
+    overflow-x:hidden;
+}
+
+/* SIATKA W TLE */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.12;
+    background-image:
+        linear-gradient(rgba(0,246,255,.2) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,246,255,.2) 1px,transparent 1px);
+    background-size:45px 45px;
+    animation:gridMove 12s linear infinite;
+    z-index:-2;
+}
+
+@keyframes gridMove{
+    from{background-position:0 0,0 0}
+    to{background-position:45px 45px,45px 45px}
+}
+
+/* SKANUJĄCA LINIA */
+
+body::after{
+    content:"";
+    position:fixed;
+    left:0;
+    right:0;
+    height:2px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        var(--cyan),
+        transparent
+    );
+    opacity:.12;
+    animation:scan 5s linear infinite;
+    pointer-events:none;
+    z-index:99;
+}
+
+@keyframes scan{
+    0%{top:-5%}
+    100%{top:105%}
+}
+
+/* HEADER */
+
+header{
+    height:76px;
+    position:sticky;
+    top:0;
+    z-index:50;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+
+    padding:0 30px;
+
+    background:rgba(5,7,13,.94);
+    border-bottom:1px solid rgba(0,246,255,.3);
+    backdrop-filter:blur(15px);
+}
+
+.logo{
+    font-family:Orbitron,sans-serif;
+    font-size:25px;
+    font-weight:900;
+    letter-spacing:3px;
+    white-space:nowrap;
+}
+
+.logo span{
+    color:var(--cyan);
+    text-shadow:0 0 15px var(--cyan);
+}
+
+/* JĘZYKI */
+
+.languages{
+    display:flex;
+    gap:5px;
+    margin-left:auto;
+}
+
+.languages button{
+    background:#07111b;
+    color:#7d94aa;
+    border:1px solid rgba(0,246,255,.25);
+    padding:7px 10px;
+    cursor:pointer;
+    font-family:Rajdhani,sans-serif;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.languages button:hover,
+.languages button.active{
+    color:#00f6ff;
+    border-color:#00f6ff;
+    box-shadow:0 0 15px rgba(0,246,255,.3);
+}
+
+.online{
+    color:var(--green);
+    font-size:13px;
+    letter-spacing:2px;
+    white-space:nowrap;
+}
+
+/* UKŁAD */
+
+.layout{
+    max-width:1500px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:250px 1fr;
+}
+
+/* MENU */
+
+.sidebar{
+    min-height:calc(100vh - 76px);
+    position:sticky;
+    top:76px;
+    padding:25px 15px;
+    border-right:1px solid rgba(0,246,255,.2);
+}
+
+.side-title{
+    color:var(--cyan);
+    font-family:Orbitron;
+    font-size:11px;
+    letter-spacing:3px;
+    margin:15px 10px 10px;
+}
+
+.sidebar button{
+    width:100%;
+    display:block;
+    border:0;
+    border-left:2px solid transparent;
+    background:transparent;
+    color:var(--muted);
+    padding:12px;
+    text-align:left;
+    font:inherit;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.sidebar button:hover,
+.sidebar button.active{
+    color:white;
+    background:rgba(0,246,255,.07);
+    border-left-color:var(--cyan);
+    padding-left:19px;
+    text-shadow:0 0 10px var(--cyan);
+}
+
+/* MAIN */
+
+main{
+    padding:30px;
+}
+
+/* HERO */
+
+.hero{
+    min-height:450px;
+    position:relative;
+    overflow:hidden;
+
+    display:flex;
+    align-items:flex-end;
+
+    padding:45px;
+
+    border:1px solid rgba(0,246,255,.3);
+
+    background:
+        linear-gradient(to top,rgba(3,5,10,.98),rgba(3,5,10,.15)),
+        radial-gradient(circle at 70% 30%,#5624a8,#07121e 55%,#03050a);
+
+    box-shadow:
+        inset 0 0 80px rgba(0,246,255,.04),
+        0 0 40px rgba(0,246,255,.04);
+
+    animation:heroPulse 5s ease-in-out infinite;
+}
+
+@keyframes heroPulse{
+    0%,100%{box-shadow:inset 0 0 80px rgba(0,246,255,.04)}
+    50%{box-shadow:inset 0 0 100px rgba(139,92,255,.12)}
+}
+
+.hero:after{
+    content:"NEON CITY // 2089";
+    position:absolute;
+    top:22px;
+    right:25px;
+    color:var(--pink);
+    font-family:Orbitron;
+    font-size:11px;
+    letter-spacing:3px;
+    animation:blink 2s infinite;
+}
+
+@keyframes blink{
+    50%{opacity:.35}
+}
+
+.hero h1{
+    font-family:Orbitron;
+    font-size:clamp(42px,7vw,82px);
+    line-height:.9;
+    text-shadow:
+        0 0 10px rgba(0,246,255,.6),
+        0 0 35px rgba(0,246,255,.2);
+    animation:glitch 4s infinite;
+}
+
+@keyframes glitch{
+    0%,90%,100%{transform:none}
+    91%{transform:translateX(2px)}
+    92%{transform:translateX(-2px)}
+    93%{transform:none}
+}
+
+.hero p{
+    max-width:680px;
+    margin-top:20px;
+    color:#a7bfcd;
+    font-size:20px;
+    line-height:1.5;
+}
+
+.kicker{
+    color:var(--cyan);
+    font-family:Orbitron;
+    font-size:12px;
+    letter-spacing:4px;
+    margin-bottom:12px;
+}
+
+/* SEARCH */
+
+.search{
+    display:flex;
+    margin:25px 0;
+    gap:10px;
+}
+
+.search input{
+    flex:1;
+    padding:15px 18px;
+    background:#080d15;
+    border:1px solid rgba(0,246,255,.3);
+    color:white;
+    outline:none;
+    font:inherit;
+}
+
+.search input:focus{
+    border-color:var(--cyan);
+    box-shadow:0 0 20px rgba(0,246,255,.15);
+}
+
+.search button{
+    border:0;
+    background:var(--cyan);
+    color:#001014;
+    padding:0 25px;
+    font-family:Orbitron;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.search button:hover{
+    background:white;
+    box-shadow:0 0 25px var(--cyan);
+}
+
+/* SEKCJE */
+
+.section{
+    margin:55px 0;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid rgba(0,246,255,.2);
+    padding-bottom:12px;
+    margin-bottom:20px;
+}
+
+.section-title h2{
+    font-family:Orbitron;
+    font-size:22px;
+}
+
+.section-title span{
+    color:var(--cyan);
+    font-family:Orbitron;
+    font-size:11px;
+}
+
+/* KARTY */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.card{
+    position:relative;
+    padding:22px;
+    min-height:220px;
+
+    background:
+        linear-gradient(145deg,#101827,#070b12);
+
+    border:1px solid rgba(0,246,255,.2);
+    cursor:pointer;
+
+    overflow:hidden;
+
+    transition:.3s;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    left:-100%;
+    top:0;
+    width:100%;
+    height:2px;
+    background:var(--cyan);
+    transition:.5s;
+}
+
+.card:hover::before{
+    left:100%;
+}
+
+.card:hover{
+    transform:translateY(-7px);
+    border-color:var(--cyan);
+    box-shadow:
+        0 15px 40px rgba(0,246,255,.12),
+        inset 0 0 30px rgba(0,246,255,.03);
+}
+
+.card-icon{
+    font-size:40px;
+    margin-bottom:15px;
+    filter:drop-shadow(0 0 10px rgba(0,246,255,.35));
+}
+
+.card h3{
+    font-family:Orbitron;
+    font-size:17px;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:var(--muted);
+    line-height:1.4;
+}
+
+.card small{
+    display:block;
+    margin-top:18px;
+    color:var(--cyan);
+    font-family:Orbitron;
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+/* TABELA */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:#080d15;
+}
+
+td{
+    border:1px solid rgba(0,246,255,.18);
+    padding:14px;
+}
+
+td:first-child{
+    color:var(--cyan);
+    width:30%;
+    font-weight:bold;
+}
+
+/* FACT */
+
+.fact{
+    padding:25px;
+    border-left:3px solid var(--pink);
+    background:rgba(255,22,140,.06);
+    margin-bottom:15px;
+    box-shadow:inset 15px 0 30px rgba(255,22,140,.02);
+}
+
+.fact strong{
+    display:block;
+    color:var(--pink);
+    font-family:Orbitron;
+    margin-bottom:10px;
+}
+
+/* STATUS PANEL */
+
+.status-panel{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin:25px 0;
+}
+
+.status{
+    padding:15px;
+    background:#080d15;
+    border:1px solid rgba(0,246,255,.2);
+}
+
+.status span{
+    display:block;
+    color:var(--muted);
+    font-size:12px;
+    margin-bottom:6px;
+}
+
+.status strong{
+    color:var(--cyan);
+    font-family:Orbitron;
+}
+
+/* PAGE */
+
+.page{
+    display:none;
+    animation:pageIn .4s ease;
+}
+
+.page.active{
+    display:block;
+}
+
+@keyframes pageIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:100;
+
+    display:none;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(0,0,0,.86);
+    backdrop-filter:blur(12px);
+}
+
+.modal.show{
+    display:flex;
+    animation:fadeIn .2s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0}
+    to{opacity:1}
+}
+
+.window{
+    position:relative;
+
+    width:min(950px,100%);
+    max-height:90vh;
+    overflow:auto;
+
+    padding:40px;
+
+    background:
+        linear-gradient(145deg,#101827,#050911);
+
+    border:1px solid var(--cyan);
+
+    box-shadow:
+        0 0 50px rgba(0,246,255,.15),
+        inset 0 0 50px rgba(0,246,255,.03);
+
+    animation:windowIn .3s ease;
+}
+
+@keyframes windowIn{
+    from{
+        transform:scale(.95) translateY(20px);
+        opacity:0;
+    }
+    to{
+        transform:none;
+        opacity:1;
+    }
+}
+
+.close{
+    position:absolute;
+    right:15px;
+    top:8px;
+    background:none;
+    border:0;
+    color:var(--cyan);
+    font-size:35px;
+    cursor:pointer;
+}
+
+.close:hover{
+    color:var(--pink);
+    text-shadow:0 0 15px var(--pink);
+}
+
+.article-title{
+    font-family:Orbitron;
+    font-size:clamp(30px,5vw,60px);
+    line-height:1;
+}
+
+.article-subtitle{
+    color:var(--pink);
+    font-family:Orbitron;
+    font-size:11px;
+    letter-spacing:3px;
+    margin:10px 0 30px;
+}
+
+.article-layout{
+    display:grid;
+    grid-template-columns:1fr 270px;
+    gap:30px;
+}
+
+.article p{
+    color:#a8c4d2;
+    line-height:1.65;
+    margin-bottom:18px;
+}
+
+.article h3{
+    color:var(--cyan);
+    font-family:Orbitron;
+    font-size:17px;
+    margin:30px 0 12px;
+}
+
+.infobox{
+    height:max-content;
+    border:1px solid rgba(0,246,255,.2);
+}
+
+.infobox-title{
+    padding:13px;
+    background:rgba(0,246,255,.07);
+    color:var(--cyan);
+    text-align:center;
+    font-family:Orbitron;
+    font-size:11px;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    padding:11px;
+    border-top:1px solid rgba(0,246,255,.15);
+    font-size:14px;
+}
+
+.row span:first-child{
+    color:var(--muted);
+}
+
+.row span:last-child{
+    text-align:right;
+}
+
+.warning{
+    padding:17px;
+    margin-top:25px;
+    border-left:3px solid var(--pink);
+    background:rgba(255,22,140,.06);
+    color:#ffafd4;
+}
+
+/* FOOTER */
+
+footer{
+    padding:35px 0;
+    margin-top:60px;
+    border-top:1px solid rgba(0,246,255,.2);
+    color:var(--muted);
+    display:flex;
+    justify-content:space-between;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+    .layout{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+        min-height:auto;
+        position:static;
+        display:flex;
+        overflow-x:auto;
+        border-right:0;
+        border-bottom:1px solid rgba(0,246,255,.2);
+    }
+
+    .side-title{
+        display:none;
+    }
+
+    .sidebar button{
+        white-space:nowrap;
+        width:auto;
+    }
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .article-layout{
+        grid-template-columns:1fr;
+    }
+
+    .status-panel{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:650px){
+
+    header{
+        height:auto;
+        min-height:76px;
+        flex-wrap:wrap;
+        padding:12px 15px;
+    }
+
+    .logo{
+        font-size:19px;
+    }
+
+    .languages{
+        order:3;
+        width:100%;
+        justify-content:center;
+    }
+
+    .online{
+        display:none;
+    }
+
+    main{
+        padding:15px;
+    }
+
+    .hero{
+        min-height:400px;
+        padding:25px;
+    }
+
+    .cards,
+    .status-panel{
+        grid-template-columns:1fr;
+    }
+
+    .window{
+        padding:25px;
+    }
+
+    footer{
+        flex-direction:column;
+        gap:10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        NEON<span>//</span>WIKI
+    </div>
+
+    <div class="languages">
+        <button onclick="changeLanguage('pl')" id="lang-pl">🇵🇱 PL</button>
+        <button onclick="changeLanguage('en')" id="lang-en">🇬🇧 EN</button>
+        <button onclick="changeLanguage('de')" id="lang-de">🇩🇪 DE</button>
+        <button onclick="changeLanguage('jp')" id="lang-jp">🇯🇵 JP</button>
+    </div>
+
+    <div class="online" id="online">
+        ● SYSTEM ONLINE
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+<!-- MENU -->
+
+<aside class="sidebar">
+
+    <div class="side-title">
+        <span id="nav-title">NAWIGACJA</span>
+    </div>
+
+    <button id="nav-home"
+        class="active"
+        onclick="showPage('home',this)">
+        ⌂ Strona główna
+    </button>
+
+    <button id="nav-districts"
+        onclick="showPage('districts',this)">
+        ▣ Dzielnice
+    </button>
+
+    <button id="nav-androids"
+        onclick="showPage('androids',this)">
+        ◈ Androidy
+    </button>
+
+    <button id="nav-technology"
+        onclick="showPage('technology',this)">
+        ⌁ Technologia
+    </button>
+
+    <button id="nav-corporations"
+        onclick="showPage('corporations',this)">
+        ⬡ Korporacje
+    </button>
+
+    <button id="nav-facts"
+        onclick="showPage('facts',this)">
+        ✦ Ciekawostki
+    </button>
+
+</aside>
+
+
+<main>
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div>
+
+            <div class="kicker" id="hero-kicker">
+                ARCHIWUM // 2089
+            </div>
+
+            <h1>
+                NEON<br>CITY
+            </h1>
+
+            <p id="hero-description">
+                Cyberpunkowa encyklopedia miasta,
+                w którym megakorporacje kontrolują
+                technologię, sztuczna inteligencja
+                obserwuje ulice, a neon nigdy nie gaśnie.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="status-panel">
+
+        <div class="status">
+            <span id="status-city">STATUS MIASTA</span>
+            <strong>ONLINE</strong>
+        </div>
+
+        <div class="status">
+            <span id="status-population">POPULACJA</span>
+            <strong>18.4 M</strong>
+        </div>
+
+        <div class="status">
+            <span id="status-threat">ZAGROŻENIE</span>
+            <strong style="color:#ff168c">HIGH</strong>
+        </div>
+
+        <div class="status">
+            <span id="status-time">CZAS LOKALNY</span>
+            <strong id="clock">--:--:--</strong>
+        </div>
+
+    </div>
+
+
+    <div class="search">
+
+        <input
+            id="search"
+            placeholder="Szukaj w bazie danych..."
+            onkeydown="if(event.key==='Enter') searchWiki()"
+        >
+
+        <button
+            id="search-button"
+            onclick="searchWiki()">
+            SZUKAJ
+        </button>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="section-title">
+            <h2 id="featured-title">
+                Najważniejsze wpisy
+            </h2>
+
+            <span>DATABASE</span>
+        </div>
+
+
+        <div class="cards">
+
+            <div class="card" onclick="openArticle('k7')">
+
+                <div class="card-icon">🤖</div>
+
+                <h3 id="card-k7-title">
+                    Android K-7
+                </h3>
+
+                <p id="card-k7-text">
+                    Tajemniczy android wojskowy
+                    stworzony przez Nexus Corp.
+                </p>
+
+                <small id="card-open-1">
+                    OTWÓRZ WPIS →
+                </small>
+
+            </div>
+
+
+            <div class="card" onclick="openArticle('neon')">
+
+                <div class="card-icon">🌆</div>
+
+                <h3 id="card-neon-title">
+                    Neon District
+                </h3>
+
+                <p id="card-neon-text">
+                    Centralna dzielnica miasta
+                    pełna hologramów i korporacji.
+                </p>
+
+                <small id="card-open-2">
+                    OTWÓRZ WPIS →
+                </small>
+
+            </div>
+
+
+            <div class="card" onclick="openArticle('watcher')">
+
+                <div class="card-icon">👁️</div>
+
+                <h3 id="card-watcher-title">
+                    Watcher
+                </h3>
+
+                <p id="card-watcher-text">
+                    Autonomiczny dron monitorujący
+                    ulice Neon City.
+                </p>
+
+                <small id="card-open-3">
+                    OTWÓRZ WPIS →
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DZIELNICE ================= -->
+
+<section id="districts" class="page">
+
+    <div class="section-title">
+
+        <h2 id="districts-title">
+            Dzielnice Neon City
+        </h2>
+
+        <span>LOCATIONS</span>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card" onclick="openArticle('neon')">
+
+            <div class="card-icon">🌆</div>
+
+            <h3>Neon District</h3>
+
+            <p id="district-neon">
+                Centrum rozrywki, handlu i życia nocnego.
+            </p>
+
+            <small id="district-open-1">
+                OTWÓRZ →
+            </small>
+
+        </div>
+
+
+        <div class="card" onclick="openArticle('iron')">
+
+            <div class="card-icon">🏭</div>
+
+            <h3>Iron Sector</h3>
+
+            <p id="district-iron">
+                Ogromna strefa przemysłowa.
+            </p>
+
+            <small id="district-open-2">
+                OTWÓRZ →
+            </small>
+
+        </div>
+
+
+        <div class="card" onclick="openArticle('skyline')">
+
+            <div class="card-icon">🏙️</div>
+
+            <h3>Skyline</h3>
+
+            <p id="district-skyline">
+                Elitarna dzielnica znajdująca się
+                setki metrów nad ulicami.
+            </p>
+
+            <small id="district-open-3">
+                OTWÓRZ →
+            </small>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ANDROIDY ================= -->
+
+<section id="androids" class="page">
+
+    <div class="section-title">
+
+        <h2 id="androids-title">
+            Androidy
+        </h2>
+
+        <span>SYNTH DATABASE</span>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card" onclick="openArticle('k7')">
+
+            <div class="card-icon">🤖</div>
+
+            <h3>Android K-7</h3>
+
+            <p id="android-k7">
+                Jednostka eksperymentalna klasy wojskowej.
+            </p>
+
+            <small id="android-open-1">
+                PEŁNY ARTYKUŁ →
+            </small>
+
+        </div>
+
+
+        <div class="card" onclick="openArticle('watcher')">
+
+            <div class="card-icon">👁️</div>
+
+            <h3>Watcher</h3>
+
+            <p id="android-watcher">
+                Dron obserwacyjny sterowany przez miejską AI.
+            </p>
+
+            <small id="android-open-2">
+                PEŁNY ARTYKUŁ →
+            </small>
+
+        </div>
+
+
+        <div class="card" onclick="openArticle('x13')">
+
+            <div class="card-icon">🧬</div>
+
+            <h3>X-13</h3>
+
+            <p id="android-x13">
+                Tajemniczy organizm związany z projektem BIOGEN.
+            </p>
+
+            <small id="android-open-3">
+                PEŁNY ARTYKUŁ →
+            </small>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TECHNOLOGIA ================= -->
+
+<section id="technology" class="page">
+
+    <div class="section-title">
+
+        <h2 id="technology-title">
+            Technologia 2089
+        </h2>
+
+        <span>TECH DATABASE</span>
+
+    </div>
+
+
+    <table>
+
+        <tr>
+            <td>Neural Link</td>
+            <td id="tech-1">
+                Bezpośrednie połączenie mózgu z siecią.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Quantum Core</td>
+            <td id="tech-2">
+                Eksperymentalny rdzeń energetyczny.
+            </td>
+        </tr>
+
+        <tr>
+            <td>HoloLens</td>
+            <td id="tech-3">
+                Zaawansowany system rzeczywistości rozszerzonej.
+            </td>
+        </tr>
+
+        <tr>
+            <td>AI Sentinel</td>
+            <td id="tech-4">
+                Sztuczna inteligencja zarządzająca bezpieczeństwem.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Cybernetic Implants</td>
+            <td id="tech-5">
+                Implanty zwiększające możliwości człowieka.
+            </td>
+        </tr>
+
+    </table>
+
+</section>
+
+
+<!-- ================= KORPORACJE ================= -->
+
+<section id="corporations" class="page">
+
+    <div class="section-title">
+
+        <h2 id="corporations-title">
+            Megakorporacje
+        </h2>
+
+        <span>FACTIONS</span>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card" onclick="openArticle('nexus')">
+
+            <div class="card-icon">⬡</div>
+
+            <h3>NEXUS CORP</h3>
+
+            <p id="corp-nexus">
+                Robotyka, AI i cybernetyka.
+            </p>
+
+            <small>OTWÓRZ →</small>
+
+        </div>
+
+
+        <div class="card" onclick="openArticle('volt')">
+
+            <div class="card-icon">⚡</div>
+
+            <h3>VOLT INDUSTRIES</h3>
+
+            <p id="corp-volt">
+                Największy dostawca energii.
+            </p>
+
+            <small>OTWÓRZ →</small>
+
+        </div>
+
+
+        <div class="card" onclick="openArticle('orbital')">
+
+            <div class="card-icon">◉</div>
+
+            <h3>ORBITAL DYNAMICS</h3>
+
+            <p id="corp-orbital">
+                Transport orbitalny i kolonizacja kosmosu.
+            </p>
+
+            <small>OTWÓRZ →</small>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CIEKAWOSTKI ================= -->
+
+<section id="facts" class="page">
+
+    <div class="section-title">
+
+        <h2 id="facts-title">
+            Ciekawostki
+        </h2>
+
+        <span>CLASSIFIED</span>
+
+    </div>
+
+
+    <div class="fact">
+
+        <strong>◆ TAJNE ARCHIWUM #001</strong>
+
+        <span id="fact-1">
+            Pierwszy wieżowiec Neon City miał ponad
+            800 metrów wysokości i był widoczny z
+            odległości ponad 60 kilometrów.
+        </span>
+
+    </div>
+
+
+    <div class="fact">
+
+        <strong>◆ TAJNE ARCHIWUM #002</strong>
+
+        <span id="fact-2">
+            Według niepotwierdzonych raportów część
+            Androidów K-7 posiada zmodyfikowaną pamięć,
+            której nie można wyczyścić zdalnie.
+        </span>
+
+    </div>
+
+
+    <div class="fact">
+
+        <strong>◆ TAJNE ARCHIWUM #003</strong>
+
+        <span id="fact-3">
+            Pod Iron Sector znajduje się podobno
+            zamknięty kompleks laboratoryjny BIOGEN-13.
+        </span>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <span>
+        NEON//WIKI © 2089
+    </span>
+
+    <span style="color:#39ff88">
+        ● DATABASE ONLINE
+    </span>
+
+</footer>
+
+</main>
+</div>
+
+
+<!-- MODAL -->
+
+<div id="modal" class="modal">
+
+    <div class="window">
+
+        <button class="close" onclick="closeArticle()">
+            ×
+        </button>
+
+        <div id="articleContent"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   ARTYKUŁY
+===================================================== */
+
+const articles = {
+
+k7:{
+title:"ANDROID K-7",
+subtitle:"JEDNOSTKA SYNTH // MILITARY CLASS",
+
+stats:[
+["Numer seryjny","K7-8841"],
+["Producent","NEXUS CORP"],
+["Rok aktywacji","2074"],
+["Wysokość","1,94 m"],
+["Masa","112 kg"],
+["Rdzeń","QUANTUM-X"],
+["Status","AKTYWNY"],
+["Zagrożenie","★★★☆☆"]
+],
+
+body:`
+
+<p>
+<strong>Android K-7</strong> to humanoidalna jednostka
+syntetyczna zaprojektowana przez Nexus Corp.
+Oficjalnie został stworzony do pracy w ekstremalnych
+warunkach przemysłowych.
+</p>
+
+<h3>Historia</h3>
+
+<p>
+Pierwsze modele K-7 pracowały w kopalniach
+poza granicami Neon City. Ich konstrukcja
+pozwalała działać przez wiele dni bez konserwacji.
+</p>
+
+<p>
+W 2076 roku Nexus rozpoczął tajny projekt
+BLACK MIRROR. Celem było stworzenie androida,
+który nie potrzebował stałego połączenia
+z centralnym systemem AI.
+</p>
+
+<h3>Wyposażenie</h3>
+
+<p>
+K-7 posiada syntetyczne mięśnie, wzmocniony
+szkielet, pancerz kompozytowy, noktowizję,
+analizę termiczną oraz bezpośrednie połączenie
+z miejską siecią danych.
+</p>
+
+<h3>Największa tajemnica</h3>
+
+<p>
+Według niepotwierdzonych informacji część
+jednostek K-7 uzyskała możliwość samodzielnego
+podejmowania decyzji.
+</p>
+
+<div class="warning">
+⚠ TAJNE ARCHIWUM<br><br>
+Pełny zapis pamięci K-7 wymaga autoryzacji OMEGA.
+</div>
+`
+},
+
+watcher:{
+title:"WATCHER",
+subtitle:"AUTONOMICZNY DRON // SURVEILLANCE",
+
+stats:[
+["Producent","NEXUS SECURITY"],
+["Wdrożenie","2081"],
+["Zasięg","12 km"],
+["Prędkość","210 km/h"],
+["Czas lotu","31 h"],
+["Tryb","AUTONOMICZNY"],
+["Status","AKTYWNY"]
+],
+
+body:`
+
+<p>
+<strong>Watcher</strong> jest autonomicznym dronem
+obserwacyjnym używanym przez system bezpieczeństwa
+Neon City.
+</p>
+
+<h3>Funkcje</h3>
+
+<p>
+Watcher analizuje obraz z kamer, rozpoznaje
+twarze, pojazdy oraz osoby znajdujące się
+na liście miejskiego systemu bezpieczeństwa.
+</p>
+
+<h3>Wyposażenie</h3>
+
+<p>
+Dron posiada kamerę termowizyjną, radar,
+mikrofon kierunkowy oraz moduł komunikacji
+z miejską AI.
+</p>
+
+<h3>Ciekawostka</h3>
+
+<p>
+Mieszkańcy nazywają Watchery
+<strong>„oczami miasta”</strong>.
+</p>
+`
+},
+
+x13:{
+title:"MUTANT X-13",
+subtitle:"BIOGEN // CLASSIFIED",
+
+stats:[
+["Projekt","BIOGEN-13"],
+["Pierwszy raport","2069"],
+["Gatunek","NIEZNANY"],
+["Status","POSZUKIWANY"],
+["Zagrożenie","★★★★☆"]
+],
+
+body:`
+
+<p>
+<strong>X-13</strong> jest oznaczeniem tajemniczego
+organizmu powstałego w wyniku eksperymentów
+genetycznych.
+</p>
+
+<h3>Projekt BIOGEN</h3>
+
+<p>
+Celem projektu było stworzenie organizmów
+odpornych na ekstremalne warunki środowiskowe.
+Dokumentacja została oficjalnie zniszczona.
+</p>
+
+<h3>Raporty</h3>
+
+<p>
+Ostatnie zgłoszenia pochodzą z opuszczonych
+tuneli pod Iron Sector.
+</p>
+
+<div class="warning">
+⚠ OSTRZEŻENIE<br><br>
+Nie zbliżać się do obiektów oznaczonych
+symbolem BIOGEN-13.
+</div>
+`
+},
+
+neon:{
+title:"NEON DISTRICT",
+subtitle:"CENTRALNA DZIELNICA // ZONE 07",
+
+stats:[
+["Populacja","2,4 mln"],
+["Bezpieczeństwo","★★☆☆☆"],
+["Funkcja","HANDEL / ROZRYWKA"],
+["Kontrola","MIEJSKA"]
+],
+
+body:`
+
+<p>
+Neon District jest najbardziej zatłoczoną
+dzielnicą Neon City.
+</p>
+
+<h3>Opis</h3>
+
+<p>
+Setki holograficznych reklam oświetlają ulice
+przez całą dobę. Znajdują się tutaj kluby,
+sklepy, bary oraz nielegalne targowiska
+technologii.
+</p>
+
+<h3>Najważniejsze miejsca</h3>
+
+<p>
+Central Tower, Market-09, Neon Plaza oraz
+podziemna stacja N-7.
+</p>
+`
+},
+
+iron:{
+title:"IRON SECTOR",
+subtitle:"INDUSTRIAL ZONE // SECTOR 03",
+
+stats:[
+["Populacja","780 tys."],
+["Funkcja","PRZEMYSŁ"],
+["Zagrożenie","★★★★☆"],
+["Powietrze","TOKSYCZNE"],
+["Kontrola","KORPORACYJNA"]
+],
+
+body:`
+
+<p>
+Iron Sector jest największą strefą przemysłową
+Neon City.
+</p>
+
+<h3>Fabryki</h3>
+
+<p>
+Zakłady pracują przez całą dobę.
+Produkuje się tutaj części cybernetyczne,
+roboty przemysłowe oraz elementy reaktorów.
+</p>
+
+<h3>Tajemnica</h3>
+
+<p>
+Pod sektorem znajduje się podobno zamknięty
+kompleks laboratoryjny BIOGEN.
+</p>
+`
+},
+
+skyline:{
+title:"SKYLINE",
+subtitle:"UPPER CITY // ELITE ZONE",
+
+stats:[
+["Wysokość","800+ m"],
+["Populacja","120 tys."],
+["Bezpieczeństwo","★★★★★"],
+["Dostęp","RESTRICTED"],
+["Kontrola","KORPORACYJNA"]
+],
+
+body:`
+
+<p>
+Skyline znajduje się setki metrów ponad
+głównymi ulicami Neon City.
+</p>
+
+<h3>Mieszkańcy</h3>
+
+<p>
+Mieszkają tutaj właściciele korporacji,
+politycy oraz najbogatsi obywatele.
+</p>
+
+<h3>Dostęp</h3>
+
+<p>
+Zwykli obywatele nie mogą wejść do Skyline
+bez specjalnego identyfikatora.
+</p>
+`
+},
+
+nexus:{
+title:"NEXUS CORP",
+subtitle:"TECHNOLOGY MEGACORPORATION",
+
+stats:[
+["Założenie","2041"],
+["Siedziba","SKYLINE"],
+["Pracownicy","4,8 mln"],
+["Branża","AI / ROBOTYKA"],
+["Status","AKTYWNA"]
+],
+
+body:`
+
+<p>
+Nexus Corp jest największą korporacją
+technologiczną Neon City.
+</p>
+
+<h3>Specjalizacja</h3>
+
+<p>
+Firma rozwija sztuczną inteligencję,
+robotykę, cybernetykę oraz implanty.
+</p>
+
+<h3>Wpływy</h3>
+
+<p>
+Nexus kontroluje znaczną część miejskiej
+infrastruktury cyfrowej.
+</p>
+`
+},
+
+volt:{
+title:"VOLT INDUSTRIES",
+subtitle:"ENERGY CORPORATION",
+
+stats:[
+["Założenie","2038"],
+["Branża","ENERGETYKA"],
+["Siedziba","IRON SECTOR"],
+["Technologia","QUANTUM CORE"],
+["Status","AKTYWNA"]
+],
+
+body:`
+
+<p>
+Volt Industries odpowiada za dostarczanie
+energii do większości Neon City.
+</p>
+
+<h3>Technologia</h3>
+
+<p>
+Korporacja wykorzystuje reaktory Quantum Core
+oraz ogromne farmy energetyczne.
+</p>
+
+<h3>Kontrowersje</h3>
+
+<p>
+Firma była wielokrotnie oskarżana o ukrywanie
+awarii reaktorów.
+</p>
+`
+},
+
+orbital:{
+title:"ORBITAL DYNAMICS",
+subtitle:"AEROSPACE CORPORATION",
+
+stats:[
+["Założenie","2059"],
+["Branża","KOSMOS"],
+["Siedziba","SKYLINE"],
+["Główna trasa","EARTH → ORBIT"],
+["Status","AKTYWNA"]
+],
+
+body:`
+
+<p>
+Orbital Dynamics odpowiada za transport
+pomiędzy Neon City a stacjami orbitalnymi.
+</p>
+
+<h3>Kolonizacja</h3>
+
+<p>
+Firma prowadzi prywatne projekty kolonizacji
+Księżyca oraz Marsa.
+</p>
+
+<h3>ORBITAL-09</h3>
+
+<p>
+Stacja ORBITAL-09 jest jednym z największych
+prywatnych obiektów znajdujących się na orbicie.
+</p>
+`
+}
+
+};
+
+
+/* =====================================================
+   JĘZYKI
+===================================================== */
+
+const translations = {
+
+pl:{
+navTitle:"NAWIGACJA",
+home:"⌂ Strona główna",
+districts:"▣ Dzielnice",
+androids:"◈ Androidy",
+technology:"⌁ Technologia",
+corporations:"⬡ Korporacje",
+facts:"✦ Ciekawostki",
+online:"● SYSTEM ONLINE",
+kicker:"ARCHIWUM // 2089",
+description:"Cyberpunkowa encyklopedia miasta, w którym megakorporacje kontrolują technologię, sztuczna inteligencja obserwuje ulice, a neon nigdy nie gaśnie.",
+city:"STATUS MIASTA",
+population:"POPULACJA",
+threat:"ZAGROŻENIE",
+time:"CZAS LOKALNY",
+search:"Szukaj w bazie danych...",
+searchButton:"SZUKAJ",
+featured:"Najważniejsze wpisy",
+open:"OTWÓRZ WPIS →"
+},
+
+en:{
+navTitle:"NAVIGATION",
+home:"⌂ Home",
+districts:"▣ Districts",
+androids:"◈ Androids",
+technology:"⌁ Technology",
+corporations:"⬡ Corporations",
+facts:"✦ Facts",
+online:"● SYSTEM ONLINE",
+kicker:"ARCHIVE // 2089",
+description:"A cyberpunk encyclopedia of a city where megacorporations control technology, artificial intelligence watches the streets, and the neon never sleeps.",
+city:"CITY STATUS",
+population:"POPULATION",
+threat:"THREAT LEVEL",
+time:"LOCAL TIME",
+search:"Search database...",
+searchButton:"SEARCH",
+featured:"Featured Entries",
+open:"OPEN ENTRY →"
+},
+
+de:{
+navTitle:"NAVIGATION",
+home:"⌂ Startseite",
+districts:"▣ Bezirke",
+androids:"◈ Androiden",
+technology:"⌁ Technologie",
+corporations:"⬡ Konzerne",
+facts:"✦ Fakten",
+online:"● SYSTEM ONLINE",
+kicker:"ARCHIV // 2089",
+description:"Eine Cyberpunk-Enzyklopädie einer Stadt, in der Megakonzerne die Technologie kontrollieren und künstliche Intelligenz die Straßen überwacht.",
+city:"STADTSTATUS",
+population:"BEVÖLKERUNG",
+threat:"GEFAHRENSTUFE",
+time:"LOKALE ZEIT",
+search:"Datenbank durchsuchen...",
+searchButton:"SUCHEN",
+featured:"Wichtige Einträge",
+open:"EINTRAG ÖFFNEN →"
+},
+
+jp:{
+navTitle:"ナビゲーション",
+home:"⌂ ホーム",
+districts:"▣ 地区",
+androids:"◈ アンドロイド",
+technology:"⌁ テクノロジー",
+corporations:"⬡ 企業",
+facts:"✦ 豆知識",
+online:"● システムオンライン",
+kicker:"アーカイブ // 2089",
+description:"巨大企業がテクノロジーを支配し、人工知能が街を監視するサイバーパンク都市の百科事典。",
+city:"都市ステータス",
+population:"人口",
+threat:"危険レベル",
+time:"現地時間",
+search:"データベースを検索...",
+searchButton:"検索",
+featured:"注目の記事",
+open:"記事を開く →"
+}
+
+};
+
+
+function changeLanguage(language){
+
+    const t=translations[language];
+
+    document.documentElement.lang=language;
+
+    document.getElementById("nav-title").textContent=t.navTitle;
+    document.getElementById("nav-home").textContent=t.home;
+    document.getElementById("nav-districts").textContent=t.districts;
+    document.getElementById("nav-androids").textContent=t.androids;
+    document.getElementById("nav-technology").textContent=t.technology;
+    document.getElementById("nav-corporations").textContent=t.corporations;
+    document.getElementById("nav-facts").textContent=t.facts;
+
+    document.getElementById("online").textContent=t.online;
+    document.getElementById("hero-kicker").textContent=t.kicker;
+    document.getElementById("hero-description").textContent=t.description;
+
+    document.getElementById("status-city").textContent=t.city;
+    document.getElementById("status-population").textContent=t.population;
+    document.getElementById("status-threat").textContent=t.threat;
+    document.getElementById("status-time").textContent=t.time;
+
+    document.getElementById("search").placeholder=t.search;
+    document.getElementById("search-button").textContent=t.searchButton;
+    document.getElementById("featured-title").textContent=t.featured;
+
+    document.getElementById("card-open-1").textContent=t.open;
+    document.getElementById("card-open-2").textContent=t.open;
+    document.getElementById("card-open-3").textContent=t.open;
+
+    document
+        .querySelectorAll(".languages button")
+        .forEach(button=>{
+            button.classList.remove("active");
+        });
+
+    document
+        .getElementById("lang-"+language)
+        .classList.add("active");
+
+    localStorage.setItem(
+        "neonWikiLanguage",
+        language
+    );
+}
+
+
+/* =====================================================
+   ZMIANA ZAKŁADEK
+===================================================== */
+
+function showPage(id,button){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page=>{
+            page.classList.remove("active");
+        });
+
+    document
+        .getElementById(id)
+        .classList.add("active");
+
+    document
+        .querySelectorAll(".sidebar button")
+        .forEach(btn=>{
+            btn.classList.remove("active");
+        });
+
+    button.classList.add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* =====================================================
+   ARTYKUŁ
+===================================================== */
+
+function openArticle(id){
+
+    const article=articles[id];
+
+    if(!article) return;
+
+    let stats="";
+
+    article.stats.forEach(item=>{
+
+        stats+=`
+            <div class="row">
+                <span>${item[0]}</span>
+                <span>${item[1]}</span>
+            </div>
+        `;
+
+    });
+
+    document.getElementById("articleContent").innerHTML=`
+
+        <div class="article-title">
+            ${article.title}
+        </div>
+
+        <div class="article-subtitle">
+            ${article.subtitle}
+        </div>
+
+        <div class="article-layout">
+
+            <div class="article">
+                ${article.body}
+            </div>
+
+            <div class="infobox">
+
+                <div class="infobox-title">
+                    INFORMACJE
+                </div>
+
+                ${stats}
+
+            </div>
+
+        </div>
+    `;
+
+    document
+        .getElementById("modal")
+        .classList.add("show");
+
+    document.body.style.overflow="hidden";
+}
+
+
+function closeArticle(){
+
+    document
+        .getElementById("modal")
+        .classList.remove("show");
+
+    document.body.style.overflow="";
+}
+
+
+/* klik poza oknem */
+
+document
+    .getElementById("modal")
+    .addEventListener("click",function(e){
+
+        if(e.target===this){
+            closeArticle();
+        }
+
+    });
+
+
+/* ESC */
+
+document.addEventListener("keydown",function(e){
+
+    if(e.key==="Escape"){
+        closeArticle();
+    }
+
+});
+
+
+/* =====================================================
+   WYSZUKIWARKA
+===================================================== */
+
+function searchWiki(){
+
+    const value=
+        document
+        .getElementById("search")
+        .value
+        .toLowerCase()
+        .trim();
+
+    if(!value){
+
+        alert("Wpisz coś do wyszukiwarki.");
+
+        return;
+    }
+
+    for(const id in articles){
+
+        const article=articles[id];
+
+        const text=
+            article.title+" "+
+            article.subtitle+" "+
+            article.body;
+
+        if(
+            text
+            .toLowerCase()
+            .includes(value)
+        ){
+
+            openArticle(id);
+
+            return;
+        }
+    }
+
+    alert(
+        "BRAK WYNIKÓW\n\n"+
+        "Nie znaleziono: "+
+        value
+    );
+}
+
+
+/* =====================================================
+   ZEGAR NEON CITY
+===================================================== */
+
+function updateClock(){
+
+    const now=new Date();
+
+    const hours=
+        String(now.getHours()).padStart(2,"0");
+
+    const minutes=
+        String(now.getMinutes()).padStart(2,"0");
+
+    const seconds=
+        String(now.getSeconds()).padStart(2,"0");
+
+    document
+        .getElementById("clock")
+        .textContent=
+        hours+":"+minutes+":"+seconds;
+}
+
+setInterval(updateClock,1000);
+
+updateClock();
+
+
+/* =====================================================
+   ZAPAMIĘTANIE JĘZYKA
+===================================================== */
+
+const savedLanguage=
+    localStorage.getItem("neonWikiLanguage")
+    || "pl";
+
+changeLanguage(savedLanguage);
+
+
+/* =====================================================
+   EASTER EGG
+   wpisz: K7
+===================================================== */
+
+let secret="";
+
+document.addEventListener("keydown",function(e){
+
+    secret+=e.key.toUpperCase();
+
+    if(secret.length>10){
+        secret=secret.slice(-10);
+    }
+
+    if(secret.includes("K7")){
+
+        alert(
+            "⚠ TAJNY DOSTĘP ⚠\n\n"+
+            "Jednostka K-7 wykryła Twoją obecność."
+        );
+
+        secret="";
+    }
+
+});
+
+</script>
+
+</body>
+</html>
